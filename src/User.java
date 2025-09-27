@@ -1,63 +1,34 @@
-
 import java.util.ArrayList;
 
 public class User {
     private String name;
     private String subscription;
     private Cart cart;
-    private ArrayList<Order> orders;
-    private String shippingAddressLine1;
-    private String shippingAddressLine2;
-    private String shippingAddressCity;
-    private String shippingAddressState;
-    private String shippingAddressZip;
-    private String shippingAddressCountry;
-    private String billingAddressLine1;
-    private String billingAddressLine2;
-    private String billingAddressCity;
-    private String billingAddressState;
-    private String billingAddressZip;
-    private String billingAddressCountry;
+    private final OrderHistory orderHistory;
+    private final AddressBook addressBook;
 
     public User(String name, String subscription) {
         this.name = name;
         this.subscription = subscription;  // normal, gold, platinum, silver membership
         this.cart = new Cart();
-        this.orders = new ArrayList<>();
+        this.orderHistory = new OrderHistory();
+        this.addressBook = new AddressBook();
     }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
 
-    public String getSubscription() {
-        return subscription;
-    }
+    public String getSubscription() { return subscription; }
 
-    public void setSubscription(String role) {
-        this.subscription = role;
-    }
+    public void setSubscription(String role) { this.subscription = role; }
 
-    public void viewCart() {
-        cart.viewCartDetails();
-    }
+    public void viewCart() { cart.viewCartDetails(); }
 
     public void setShippingAddress(String line1, String line2, String city, String state, String zip, String country) {
-        this.shippingAddressLine1 = line1;
-        this.shippingAddressLine2 = line2;
-        this.shippingAddressCity = city;
-        this.shippingAddressState = state;
-        this.shippingAddressZip = zip;
-        this.shippingAddressCountry = country;
+        addressBook.setShippingAddress(line1, line2, city, state, zip, country);
     }
 
     public void setBillingAddress(String line1, String line2, String city, String state, String zip, String country) {
-        this.billingAddressLine1 = line1;
-        this.billingAddressLine2 = line2;
-        this.billingAddressCity = city;
-        this.billingAddressState = state;
-        this.billingAddressZip = zip;
-        this.billingAddressCountry = country;
+        addressBook.setBillingAddress(line1, line2, city, state, zip, country);
     }
 
     public void addToCart(Book book, int quantity) {
@@ -65,29 +36,36 @@ public class User {
     }
 
     public void removeFromCart(Book book) {
-        for (CartItem item : cart.getItems()) {
+        for (CartItem item : new ArrayList<>(cart.getItems())) {
             if (item.getName().equals(book.getTitle())) {
-                cart.getItems().remove(item);
+                cart.removeItem(item);
                 break;
             }
         }
     }
 
     public void viewOrders() {
-        for (Order order : orders) {
-            order.printOrderDetails();
-        }
+        orderHistory.printOrders();
     }
 
     public void checkout() {
         Order order = new Order(cart, this.subscription);
-        order.setShippingAddress("123 Main St", "", "Springfield", "IL", "62701", "USA");
-        order.setBillingAddress("123 Main St", "", "Springfield", "IL", "62701", "USA");
+        Address shipping = addressBook.getShippingAddress();
+        Address billing = addressBook.getBillingAddress();
+
+        if (shipping != null) {
+            order.setShippingAddress(
+                shipping.getLine1(), shipping.getLine2(), shipping.getCity(),
+                shipping.getState(), shipping.getZip(), shipping.getCountry());
+        }
+        if (billing != null) {
+            order.setBillingAddress(
+                billing.getLine1(), billing.getLine2(), billing.getCity(),
+                billing.getState(), billing.getZip(), billing.getCountry());
+        }
         order.setOrderStatus("Order Placed");
         order.setDateCreated("2024-01-01");
         order.setUserName(this.name);
-        orders.add(order);
+        orderHistory.addOrder(order);
     }
 }
-
-
