@@ -1,5 +1,3 @@
-// refactored with a hashmap
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,8 +14,8 @@ public class DiscountService {
     public double applySubscriptionDiscount(double subtotal, String subscription) {
         if (subscription == null) return subtotal;
 
-        String tier = subscription.toLowerCase();
-        double rate = DISCOUNT_MAP.getOrDefault(tier, 0.0);
+        String subscription_tier = subscription.toLowerCase();
+        double rate = DISCOUNT_MAP.getOrDefault(subscription_tier, 0.0);
 
         return subtotal * (1.0 - rate);
     }
