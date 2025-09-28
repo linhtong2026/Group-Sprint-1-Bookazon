@@ -1,17 +1,22 @@
+import java.util.HashMap;
+import java.util.Map;
+
 public class DiscountService {
+    private static final Map<String, Double> DISCOUNT_MAP = new HashMap<>();
+
+    static {
+        DISCOUNT_MAP.put("gold", 0.15);
+        DISCOUNT_MAP.put("platinum", 0.10);
+        DISCOUNT_MAP.put("silver", 0.05);
+        DISCOUNT_MAP.put("normal", 0.0);
+    }
 
     public double applySubscriptionDiscount(double subtotal, String subscription) {
-        double rate = 0.0;
-        if (subscription != null) {
-            String tier = subscription.toLowerCase();
-            if (tier.equals("gold")) {
-                rate = 0.15;
-            } else if (tier.equals("platinum")) {
-                rate = 0.10;
-            } else if (tier.equals("silver")) {
-                rate = 0.05;
-            }
-        }
+        if (subscription == null) return subtotal;
+
+        String subscription_tier = subscription.toLowerCase();
+        double rate = DISCOUNT_MAP.getOrDefault(subscription_tier, 0.0);
+
         return subtotal * (1.0 - rate);
     }
 }
