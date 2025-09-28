@@ -25,11 +25,25 @@ public class CartItem {
         this.quantity = quantity;
     }
 
-    public boolean equals(CartItem item) {
-        return this.itemName.equals(item.getName());
-    }
-
     public double getTotalPrice() {
         return price * quantity;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CartItem)) return false;
+        CartItem other = (CartItem) o;
+        return this.itemName != null && this.itemName.equals(other.itemName);
+    }
+
+    @Override
+    public int hashCode() {
+        return itemName == null ? 0 : itemName.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return itemName + " x" + quantity + " @ " + price;
     }
 }
