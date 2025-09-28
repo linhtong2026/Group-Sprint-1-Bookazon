@@ -1,3 +1,5 @@
+// refactored with a hashmap
+
 import java.util.HashMap;
 import java.util.Map;
 
