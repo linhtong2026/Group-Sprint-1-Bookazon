@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Order {
     private String dateCreated;
@@ -17,11 +19,11 @@ public class Order {
     private String billingAddressState;
     private String billingAddressZip;
     private String billingAddressCountry;
-    private ArrayList<CartItem> items;
     private double orderPrice;
+    private List<CartItem> items;
 
     public Order(Cart cart, String subscription) {
-        this.items = cart.getItems();
+        this.items = Collections.unmodifiableList(new ArrayList<>(cart.getItems()));
         this.orderPrice = calculatePrice(subscription);
     }
 
