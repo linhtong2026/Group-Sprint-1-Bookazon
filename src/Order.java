@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Order {
@@ -21,7 +23,7 @@ public class Order {
     private List<CartItem> items;
 
     public Order(Cart cart, String subscription) {
-        this.items = cart.getItems();
+        this.items = Collections.unmodifiableList(new ArrayList<>(cart.getItems()));
         this.orderPrice = calculatePrice(subscription);
     }
 
