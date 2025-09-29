@@ -13,22 +13,9 @@ public class CatalogService {
         for (Media m : mediaItems) { m.printMediaDetails(); System.out.println(); }
     }
 
-    public void viewBooks() {
-        for (Media m : mediaItems) {
-            if (m instanceof Book) { m.printMediaDetails(); System.out.println(); }
-        }
-    }
-
     public void updateMediaDetails(Media media, String newTitle, int newYearPublished, double newPrice) {
         media.setTitle(newTitle);
         media.setYearPublished(newYearPublished);
         media.setPrice(newPrice);
-    }
-
-    public void updateBookDetails(Book book, String newTitle, String newAuthor,
-                                  int newYearPublished, double newPrice, CoverType coverType) {
-        updateMediaDetails(book, newTitle, newYearPublished, newPrice);
-        book.setAuthor(newAuthor);
-        book.setCoverType(coverType);
     }
 }
