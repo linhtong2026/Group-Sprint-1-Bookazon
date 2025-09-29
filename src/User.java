@@ -23,12 +23,12 @@ public class User {
 
     public void viewCart() { cart.viewCartDetails(); }
 
-    public void setShippingAddress(String line1, String line2, String city, String state, String zip, String country) {
-        addressBook.setShippingAddress(line1, line2, city, state, zip, country);
+    public void setShippingAddress(Address address) {
+        addressBook.setShippingAddress(address);
     }
 
-    public void setBillingAddress(String line1, String line2, String city, String state, String zip, String country) {
-        addressBook.setBillingAddress(line1, line2, city, state, zip, country);
+    public void setBillingAddress(Address address) {
+        addressBook.setBillingAddress(address);
     }
 
     public void addToCart(Book book, int quantity) {
@@ -54,14 +54,10 @@ public class User {
         Address billing = addressBook.getBillingAddress();
 
         if (shipping != null) {
-            order.setShippingAddress(
-                shipping.getLine1(), shipping.getLine2(), shipping.getCity(),
-                shipping.getState(), shipping.getZip(), shipping.getCountry());
+            order.setShippingAddress(shipping);
         }
         if (billing != null) {
-            order.setBillingAddress(
-                billing.getLine1(), billing.getLine2(), billing.getCity(),
-                billing.getState(), billing.getZip(), billing.getCountry());
+            order.setBillingAddress(billing);
         }
         order.setOrderStatus("Order Placed");
         order.setDateCreated("2024-01-01");
