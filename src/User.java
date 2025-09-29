@@ -32,7 +32,7 @@ public class User {
     }
 
     public void addToCart(Book book, int quantity) {
-        cart.addItem(new CartItem(book.getTitle(), book.getPrice(), quantity));
+        cart.addItem(new CartItem(book.getTitle(), book.getPrice(), quantity, new StandardPricing()));
     }
 
     public void removeFromCart(Book book) {
@@ -49,7 +49,7 @@ public class User {
     }
 
     public void checkout() {
-        Order order = new Order(cart, this.subscription);
+        Order order = new Order(cart, this.subscription, new DiscountService());
         Address shipping = addressBook.getShippingAddress();
         Address billing = addressBook.getBillingAddress();
 

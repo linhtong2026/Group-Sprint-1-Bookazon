@@ -2,11 +2,13 @@ public class CartItem {
     private String itemName;
     private double price;
     private int quantity;
+    private PricingStrategy pricingStrategy;
 
-    public CartItem(String itemName, double price, int quantity) {
+    public CartItem(String itemName, double price, int quantity, PricingStrategy pricingStrategy) {
         this.itemName = itemName;
         this.price = price;
         this.quantity = quantity;
+        this.pricingStrategy = pricingStrategy;
     }
 
     public String getName() {
@@ -26,7 +28,7 @@ public class CartItem {
     }
 
     public double getTotalPrice() {
-        return price * quantity;
+        return pricingStrategy.calculatePrice(price, quantity);
     }
 
     @Override

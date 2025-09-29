@@ -1,7 +1,7 @@
 import java.util.HashMap;
 import java.util.Map;
 
-public class DiscountService {
+public class DiscountService implements DiscountCalculator {
     private static final Map<String, Double> DISCOUNT_MAP = new HashMap<>();
 
     static {
@@ -11,7 +11,7 @@ public class DiscountService {
         DISCOUNT_MAP.put("normal", 0.0);
     }
 
-    public double applySubscriptionDiscount(double subtotal, String subscription) {
+    public double applyDiscount(double subtotal, String subscription) {
         if (subscription == null) return subtotal;
 
         String subscription_tier = subscription.toLowerCase();
