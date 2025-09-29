@@ -4,9 +4,9 @@ public class Bookazon {
         UserService users = new UserService();
         CheckoutService checkout = new CheckoutService();
 
-        catalog.addBook(new Book("The Great Gatsby", "F. Scott Fitzgerald", 1925, 9.99, true));
-        catalog.addBook(new Book("To Kill a Mockingbird", "Harper Lee", 1960, 7.99, false));
-        catalog.addBook(new Book("1984", "George Orwell", 1949, 8.99, true));
+        catalog.addMedia(new Book("The Great Gatsby", "F. Scott Fitzgerald", 1925, 9.99, CoverType.PAPERBACK));
+        catalog.addMedia(new Book("To Kill a Mockingbird", "Harper Lee", 1960, 7.99, CoverType.HARDCOVER));
+        catalog.addMedia(new Book("1984", "George Orwell", 1949, 8.99, CoverType.PAPERBACK));
         catalog.addMedia(new Audiobook("Gregor the Overlander", 14.99, 2003, "Suzanne Collins", 1140, AudioFormat.MP3));
         catalog.addMedia(new DVD("The Matrix", 12.99, 1999, "The Wachowskis", 136, VideoFormat.BLU_RAY, "Sci-Fi"));
         catalog.addMedia(new Ebook("One Man's View of the World", 9.99, 2013, "Kee Kuan Yew", EbookFormat.EPUB, 2.5, false));

@@ -5,7 +5,6 @@ public class CatalogService {
     private final List<Media> mediaItems = new ArrayList<>();
 
     public void addMedia(Media media) { mediaItems.add(media); }
-    public void addBook(Book book) { mediaItems.add(book); }
 
     public void removeMedia(Media media) { mediaItems.remove(media); }
     public List<Media> listAll() { return new ArrayList<>(mediaItems); }
@@ -31,12 +30,5 @@ public class CatalogService {
         updateMediaDetails(book, newTitle, newYearPublished, newPrice);
         book.setAuthor(newAuthor);
         book.setCoverType(coverType);
-    }
-
-    // convenience for legacy boolean
-    public void updateBookDetails(Book book, String newTitle, String newAuthor,
-                                  int newYearPublished, double newPrice, boolean isPaperback) {
-        updateBookDetails(book, newTitle, newAuthor, newYearPublished, newPrice,
-                isPaperback ? CoverType.PAPERBACK : CoverType.HARDCOVER);
     }
 }

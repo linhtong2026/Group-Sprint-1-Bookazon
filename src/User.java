@@ -35,10 +35,6 @@ public class User {
         cart.addItem(new CartItem(media.getTitle(), media.getPrice(), quantity, new StandardPricing()));
     }
 
-    public void addToCart(Book book, int quantity) {
-        addToCart((Media) book, quantity);
-    }
-
     public void removeFromCart(Media media) {
         for (CartItem item : new ArrayList<>(cart.getItems())) {
             if (item.getName().equals(media.getTitle())) {
@@ -46,10 +42,6 @@ public class User {
                 break;
             }
         }
-    }
-
-    public void removeFromCart(Book book) {
-        removeFromCart((Media) book);
     }
 
     public void viewOrders() {
