@@ -10,12 +10,19 @@ public class Order {
     private Address shippingAddress;
     private Address billingAddress;
     private double orderPrice;
+    private double subtotal;
     private List<CartItem> items;
-    private DiscountCalculator discountCalculator;
+    private Subscription subscription;
 
-    public Order(Cart cart, DiscountCalculator discountCalculator, TotalPriceCalculator totalPriceCalculator) {
-        this.discountCalculator = discountCalculator;
+    public Order(Cart cart, TotalPriceCalculator totalPriceCalculator, Subscription subscription) {
+        this.subscription = subscription;
         this.items = Collections.unmodifiableList(new ArrayList<>(cart.getItems()));
+        
+        this.subtotal = 0.0;
+        for (CartItem item : this.items) {
+            this.subtotal += item.getTotalPrice();
+        }
+        
         this.orderPrice = totalPriceCalculator.calculateTotalPrice(this.items);
     }
 
@@ -51,6 +58,20 @@ public class Order {
         System.out.println("Order Status: " + orderStatus);
         System.out.println("Shipping Address: " + (shippingAddress != null ? shippingAddress.toString() : "Not set"));
         System.out.println("Billing Address: " + (billingAddress != null ? billingAddress.toString() : "Not set"));
-        System.out.println("Order Price: $" + orderPrice);
+        
+        System.out.println();
+        System.out.println("Pricing Breakdown:");
+        System.out.printf("Subtotal: $%.2f%n", subtotal);
+        
+        if (subscription != null && subscription.discountRate() > 0) {
+            double discountAmount = subtotal - orderPrice;
+            System.out.printf("Subscription: %s%n", subscription.toString());
+            System.out.printf("Discount Amount: -$%.2f%n", discountAmount);
+        } else {
+            System.out.println("Subscription: Normal (No discount)");
+            System.out.println("Discount Amount: $0.00");
+        }
+        
+        System.out.printf("Final Total: $%.2f%n", orderPrice);
     }
 }
