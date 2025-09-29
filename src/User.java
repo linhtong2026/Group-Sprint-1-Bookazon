@@ -2,12 +2,12 @@ import java.util.ArrayList;
 
 public class User {
     private String name;
-    private String subscription;
+    private Subscription subscription;
     private Cart cart;
     private final OrderHistory orderHistory;
     private final AddressBook addressBook;
 
-    public User(String name, String subscription) {
+    public User(String name, Subscription subscription) {
         this.name = name;
         this.subscription = subscription;  // normal, gold, platinum, silver membership
         this.cart = new Cart();
@@ -17,9 +17,9 @@ public class User {
 
     public String getName() { return name; }
 
-    public String getSubscription() { return subscription; }
+    public String getSubscription() { return subscription.toString(); }
 
-    public void setSubscription(String role) { this.subscription = role; }
+    public void setSubscription(Subscription subscription) { this.subscription = subscription; }
 
     public void viewCart() { cart.viewCartDetails(); }
 
@@ -50,7 +50,7 @@ public class User {
 
     public void checkout() {
         DiscountService discountService = new DiscountService();
-        Order order = new Order(cart, this.subscription, discountService, new TotalPriceCalculator(discountService));
+        Order order = new Order(cart, discountService, new TotalPriceCalculator(discountService, this.subscription));
         Address shipping = addressBook.getShippingAddress();
         Address billing = addressBook.getBillingAddress();
 
