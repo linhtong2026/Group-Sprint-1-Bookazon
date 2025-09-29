@@ -60,8 +60,10 @@ public class Bookazon {
 
         bookazon.users.get(0).viewCart();
 
-        bookazon.users.get(0).setShippingAddress("123 Main St", "", "Springfield", "IL", "62701", "USA");
-        bookazon.users.get(0).setBillingAddress("456 Elm St", "", "Springfield", "IL", "62702", "USA");
+
+        // set shipping address and billing address
+        bookazon.users.get(0).setShippingAddress(new Address("123 Main St", "", "Springfield", "IL", "62701", "USA"));
+        bookazon.users.get(0).setBillingAddress(new Address("456 Elm St", "", "Springfield", "IL", "62702", "USA"));
 
         bookazon.users.get(0).checkout();
         bookazon.users.get(0).viewOrders();
