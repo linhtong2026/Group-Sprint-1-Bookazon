@@ -21,8 +21,10 @@ public class Order {
     private String billingAddressCountry;
     private double orderPrice;
     private List<CartItem> items;
+    private DiscountCalculator discountCalculator;
 
-    public Order(Cart cart, String subscription) {
+    public Order(Cart cart, String subscription, DiscountCalculator discountCalculator) {
+        this.discountCalculator = discountCalculator;
         this.items = Collections.unmodifiableList(new ArrayList<>(cart.getItems()));
         this.orderPrice = calculatePrice(subscription);
     }
@@ -77,7 +79,6 @@ public class Order {
         for (CartItem item : items) {
             subtotal += item.getTotalPrice();
         }
-        DiscountService ds = new DiscountService();
-        return ds.applySubscriptionDiscount(subtotal, subscription);
+        return discountCalculator.applyDiscount(subtotal, subscription);
     }
 }
