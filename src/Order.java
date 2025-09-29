@@ -13,10 +13,10 @@ public class Order {
     private List<CartItem> items;
     private DiscountCalculator discountCalculator;
 
-    public Order(Cart cart, String subscription, DiscountCalculator discountCalculator, TotalPriceCalculator totalPriceCalculator) {
+    public Order(Cart cart, DiscountCalculator discountCalculator, TotalPriceCalculator totalPriceCalculator) {
         this.discountCalculator = discountCalculator;
         this.items = Collections.unmodifiableList(new ArrayList<>(cart.getItems()));
-        this.orderPrice = totalPriceCalculator.calculateTotalPrice(this.items, subscription);
+        this.orderPrice = totalPriceCalculator.calculateTotalPrice(this.items);
     }
 
     public void setShippingAddress(Address address) {

@@ -43,7 +43,7 @@ public class Bookazon {
                 isPaperback ? CoverType.PAPERBACK : CoverType.HARDCOVER);
     }
 
-    public void updateRole(User user, String role) { user.setSubscription(role); }
+    public void updateRole(User user, Subscription subscription) { user.setSubscription(subscription); }
 
     public static void main(String[] args) {
         Bookazon bookazon = new Bookazon();
@@ -52,8 +52,8 @@ public class Bookazon {
         bookazon.addBook(new Book("To Kill a Mockingbird", "Harper Lee", 1960, 7.99, false));
         bookazon.addBook(new Book("1984", "George Orwell", 1949, 8.99, true));
 
-        bookazon.addUser(new User("Alice", "normal"));
-        bookazon.addUser(new User("Bob", "gold"));
+        bookazon.addUser(new User("Alice", new SubscriptionNormal()));
+        bookazon.addUser(new User("Bob", new SubscriptionGold()));
 
         bookazon.users.get(0).addToCart(bookazon.books.get(0), 1);
         bookazon.users.get(0).addToCart(bookazon.books.get(1), 2);
