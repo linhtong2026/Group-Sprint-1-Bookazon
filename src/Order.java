@@ -13,10 +13,10 @@ public class Order {
     private List<CartItem> items;
     private DiscountCalculator discountCalculator;
 
-    public Order(Cart cart, String subscription, DiscountCalculator discountCalculator) {
+    public Order(Cart cart, String subscription, DiscountCalculator discountCalculator, TotalPriceCalculator totalPriceCalculator) {
         this.discountCalculator = discountCalculator;
         this.items = Collections.unmodifiableList(new ArrayList<>(cart.getItems()));
-        this.orderPrice = calculatePrice(subscription);
+        this.orderPrice = totalPriceCalculator.calculateTotalPrice(this.items, subscription);
     }
 
     public void setShippingAddress(Address address) {
@@ -52,13 +52,5 @@ public class Order {
         System.out.println("Shipping Address: " + (shippingAddress != null ? shippingAddress.toString() : "Not set"));
         System.out.println("Billing Address: " + (billingAddress != null ? billingAddress.toString() : "Not set"));
         System.out.println("Order Price: $" + orderPrice);
-    }
-
-    public double calculatePrice(String subscription) {
-        double subtotal = 0.0;
-        for (CartItem item : items) {
-            subtotal += item.getTotalPrice();
-        }
-        return discountCalculator.applyDiscount(subtotal, subscription);
     }
 }

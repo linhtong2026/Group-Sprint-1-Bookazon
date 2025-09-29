@@ -49,7 +49,8 @@ public class User {
     }
 
     public void checkout() {
-        Order order = new Order(cart, this.subscription, new DiscountService());
+        DiscountService discountService = new DiscountService();
+        Order order = new Order(cart, this.subscription, discountService, new TotalPriceCalculator(discountService));
         Address shipping = addressBook.getShippingAddress();
         Address billing = addressBook.getBillingAddress();
 
