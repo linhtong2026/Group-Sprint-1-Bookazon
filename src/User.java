@@ -31,17 +31,25 @@ public class User {
         addressBook.setBillingAddress(address);
     }
 
-    public void addToCart(Book book, int quantity) {
-        cart.addItem(new CartItem(book.getTitle(), book.getPrice(), quantity, new StandardPricing()));
+    public void addToCart(Media media, int quantity) {
+        cart.addItem(new CartItem(media.getTitle(), media.getPrice(), quantity, new StandardPricing()));
     }
 
-    public void removeFromCart(Book book) {
+    public void addToCart(Book book, int quantity) {
+        addToCart((Media) book, quantity);
+    }
+
+    public void removeFromCart(Media media) {
         for (CartItem item : new ArrayList<>(cart.getItems())) {
-            if (item.getName().equals(book.getTitle())) {
+            if (item.getName().equals(media.getTitle())) {
                 cart.removeItem(item);
                 break;
             }
         }
+    }
+
+    public void removeFromCart(Book book) {
+        removeFromCart((Media) book);
     }
 
     public void viewOrders() {
@@ -50,7 +58,7 @@ public class User {
 
     public void checkout() {
         DiscountService discountService = new DiscountService();
-        Order order = new Order(cart, discountService, new TotalPriceCalculator(discountService, this.subscription));
+        Order order = new Order(cart, new TotalPriceCalculator(discountService, this.subscription), this.subscription);
         Address shipping = addressBook.getShippingAddress();
         Address billing = addressBook.getBillingAddress();
 
