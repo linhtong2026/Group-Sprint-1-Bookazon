@@ -11,6 +11,27 @@ public class Bookazon {
         catalog.addMedia(new DVD("The Matrix", 12.99, 1999, "The Wachowskis", 136, VideoFormat.BLU_RAY, "Sci-Fi"));
         catalog.addMedia(new Ebook("One Man's View of the World", 9.99, 2013, "Kee Kuan Yew", EbookFormat.EPUB, 2.5, false));
 
+        if (args.length > 0 && "--addBook".equalsIgnoreCase(args[0])) {
+            if (args.length == 6) {
+                String title = args[1];
+                String author = args[2];
+                try {
+                    int year = Integer.parseInt(args[3]);
+                    double price = Double.parseDouble(args[4]);
+                    String cover = args[5].toLowerCase();
+                    CoverType coverType = cover.startsWith("p") ? CoverType.PAPERBACK
+                                                                : CoverType.HARDCOVER;
+                    catalog.addBook(new Book(title, author, year, price, coverType));
+                    System.out.println("[CLI] Added book: " + title + " (" + coverType + ")");
+                } catch (NumberFormatException nfe) {
+                    System.out.println("[CLI] Invalid number for year/price. Usage:");
+                    printAddBookUsage();
+                }
+            } else {
+                printAddBookUsage();
+            }
+        }
+
         User alice = new User("Alice", new SubscriptionNormal());
         User bob   = new User("Bob", new SubscriptionGold());
         users.addUser(alice);
@@ -30,5 +51,12 @@ public class Bookazon {
 
         checkout.checkout(alice);
         checkout.viewOrders(alice);
+    }
+
+    private static void printAddBookUsage() {
+        System.out.println("Usage:");
+        System.out.println("  --addBook \"Title\" \"Author\" <year> <price> <paperback|hardcover>");
+        System.out.println("Example:");
+        System.out.println("  --addBook \"Clean Code\" \"Robert C. Martin\" 2008 29.99 paperback");
     }
 }
