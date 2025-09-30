@@ -1,4 +1,6 @@
+
 public class Audiobook extends Media {
+
     private String narrator;
     private int durationMinutes;
     private AudioFormat audioFormat;
@@ -10,14 +12,29 @@ public class Audiobook extends Media {
         this.audioFormat = audioFormat;
     }
 
-    public String getNarrator() { return narrator; }
-    public void setNarrator(String narrator) { this.narrator = narrator; }
+    public String getNarrator() {
+        return narrator;
+    }
 
-    public int getDurationMinutes() { return durationMinutes; }
-    public void setDurationMinutes(int durationMinutes) { this.durationMinutes = durationMinutes; }
+    public void setNarrator(String narrator) {
+        this.narrator = narrator;
+    }
 
-    public AudioFormat getAudioFormat() { return audioFormat; }
-    public void setAudioFormat(AudioFormat audioFormat) { this.audioFormat = audioFormat; }
+    public int getDurationMinutes() {
+        return durationMinutes;
+    }
+
+    public void setDurationMinutes(int durationMinutes) {
+        this.durationMinutes = durationMinutes;
+    }
+
+    public AudioFormat getAudioFormat() {
+        return audioFormat;
+    }
+
+    public void setAudioFormat(AudioFormat audioFormat) {
+        this.audioFormat = audioFormat;
+    }
 
     @Override
     public void printMediaDetails() {
@@ -34,6 +51,11 @@ public class Audiobook extends Media {
         return "Audiobook";
     }
 
-    public boolean isNarratorValid() { return narrator != null && !narrator.isEmpty(); }
-    public boolean isDurationValid() { return durationMinutes > 0; }
+    public boolean isNarratorValid() {
+        return narrator != null && !narrator.isEmpty();
+    }
+
+    public boolean isDurationValid() {
+        return durationMinutes > 0;
+    }
 }

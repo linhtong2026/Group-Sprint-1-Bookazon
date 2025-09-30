@@ -1,6 +1,8 @@
+
 import java.util.ArrayList;
 
 public class User {
+
     private String name;
     private Subscription subscription;
     private Cart cart;
@@ -15,13 +17,21 @@ public class User {
         this.addressBook = new AddressBook();
     }
 
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 
-    public String getSubscription() { return subscription.toString(); }
+    public String getSubscription() {
+        return subscription.toString();
+    }
 
-    public void setSubscription(Subscription subscription) { this.subscription = subscription; }
+    public void setSubscription(Subscription subscription) {
+        this.subscription = subscription;
+    }
 
-    public void viewCart() { cart.viewCartDetails(); }
+    public void viewCart() {
+        cart.viewCartDetails();
+    }
 
     public void setShippingAddress(Address address) {
         addressBook.setShippingAddress(address);

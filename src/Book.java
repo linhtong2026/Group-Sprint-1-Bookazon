@@ -1,6 +1,8 @@
+
 public class Book extends Media {
+
     private String author;
-    private CoverType coverType; 
+    private CoverType coverType;
 
     public Book(String title, String author, int yearPublished, double price, CoverType coverType) {
         super(title, price, yearPublished);
@@ -8,12 +10,21 @@ public class Book extends Media {
         this.coverType = coverType;
     }
 
+    public String getAuthor() {
+        return author;
+    }
 
-    public String getAuthor() { return author; }
-    public void setAuthor(String author) { this.author = author; }
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
-    public CoverType getCoverType() { return coverType; }
-    public void setCoverType(CoverType coverType) { this.coverType = coverType; }
+    public CoverType getCoverType() {
+        return coverType;
+    }
+
+    public void setCoverType(CoverType coverType) {
+        this.coverType = coverType;
+    }
 
     @Override
     public void printMediaDetails() {
@@ -21,7 +32,7 @@ public class Book extends Media {
         System.out.println("Author: " + author);
         System.out.println("Year Published: " + yearPublished);
         System.out.println("Price: $" + price);
-        System.out.println("Cover: " + coverType); 
+        System.out.println("Cover: " + coverType);
     }
 
     @Override
@@ -29,6 +40,7 @@ public class Book extends Media {
         return "Book";
     }
 
-
-    public boolean isAuthorValid() { return author != null && !author.isEmpty(); }
+    public boolean isAuthorValid() {
+        return author != null && !author.isEmpty();
+    }
 }

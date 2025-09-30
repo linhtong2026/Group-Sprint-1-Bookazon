@@ -1,4 +1,6 @@
+
 public class Bookazon {
+
     public static void main(String[] args) {
         CatalogService catalog = new CatalogService();
         UserService users = new UserService();
@@ -20,7 +22,7 @@ public class Bookazon {
                     double price = Double.parseDouble(args[4]);
                     String cover = args[5].toLowerCase();
                     CoverType coverType = cover.startsWith("p") ? CoverType.PAPERBACK
-                                                                : CoverType.HARDCOVER;
+                            : CoverType.HARDCOVER;
                     catalog.addMedia(new Book(title, author, year, price, coverType));
                     System.out.println("[CLI] Added book: " + title + " (" + coverType + ")");
                 } catch (NumberFormatException nfe) {
@@ -33,7 +35,7 @@ public class Bookazon {
         }
 
         User alice = new User("Alice", new SubscriptionNormal());
-        User bob   = new User("Bob", new SubscriptionGold());
+        User bob = new User("Bob", new SubscriptionGold());
         users.addUser(alice);
         users.addUser(bob);
 
@@ -47,7 +49,7 @@ public class Bookazon {
         checkout.viewCart(alice);
 
         users.setShippingAddress(alice, new Address("123 Main St", "", "Springfield", "IL", "62701", "USA"));
-        users.setBillingAddress(alice,  new Address("456 Elm St", "", "Springfield", "IL", "62702", "USA"));
+        users.setBillingAddress(alice, new Address("456 Elm St", "", "Springfield", "IL", "62702", "USA"));
 
         checkout.checkout(alice);
         checkout.viewOrders(alice);

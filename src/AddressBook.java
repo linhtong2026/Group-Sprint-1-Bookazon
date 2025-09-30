@@ -1,4 +1,6 @@
+
 public class AddressBook {
+
     private Address shippingAddress;
     private Address billingAddress;
 
@@ -10,6 +12,11 @@ public class AddressBook {
         this.billingAddress = address;
     }
 
-    public Address getShippingAddress() { return shippingAddress; }
-    public Address getBillingAddress()  { return billingAddress; }
+    public Address getShippingAddress() {
+        return shippingAddress;
+    }
+
+    public Address getBillingAddress() {
+        return billingAddress;
+    }
 }
