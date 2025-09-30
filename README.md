@@ -1,94 +1,147 @@
-# Group Sprint 1: Bookazon
-An assignment for redesigning software and refactoring code smells.  Part of Software Engineering class CS321, fall 2024.
+# 📚 Bookazon — Sprint 1 (Group 4)
 
-## Project Objectives
-- Practice redesigning a software project with guidance from **SOLID design principles**.
-- Refactor code to address **design smells** and enhance **readability** and **maintainability**.
-- Apply **Agile Scrum** and **project management** fundamentals.
-- Collaborate as a team using **Git** and **GitHub** effectively.
+> A tiny bookstore app that we used to practice **SOLID**, clean refactoring, and agile habits.  
+> Come for the books, stay for the design improvements.
 
 ---
 
-## Overview
-In this project, you will work in small teams to **extend** and **improve** an existing online book store. The project focuses on adding new functionality while ensuring the system adheres to **key software design principles**. Throughout the project, you will practice collaborative development via GitHub, utilizing best practices such as **issue tracking**, **code reviews**, and **feature branching**.
+## ✨ What is this?
+
+**Bookazon** started as a simple Java console app and grew into a small but well-structured codebase that demonstrates:
+- Applying **SOLID** principles to an existing project
+- Hunting down **code smells** and refactoring safely
+- Writing small, focused **services** instead of a single “God class”
+- Adding features without breaking existing behavior
 
 ---
 
-## Repository Management
-- The **repo manager** should begin by forking the project repository on GitHub and adding all team members as collaborators.  
-  - **Starting Repository:** [Link to be provided]
-- The forked repository will serve as your team's workspace. All progress will be tracked through GitHub.
+## 🗺️ Quick Tour
+
+```
+src/
+├── Address.java / AddressBook.java
+├── media/
+│   ├── Media.java
+│   ├── Book.java  (CoverType.PAPERBACK|HARDCOVER)
+│   ├── Audiobook.java (AudioFormat)
+│   ├── DVD.java       (VideoFormat)
+│   └── Ebook.java     (EbookFormat)
+├── cart/
+│   ├── Cart.java
+│   └── CartItem.java  (correct equals/hashCode)
+├── order/
+│   ├── Order.java
+│   └── OrderHistory.java
+├── pricing/
+│   └── DiscountService.java  (clean tier lookup)
+├── services/
+│   ├── CatalogService.java
+│   ├── UserService.java
+│   └── CheckoutService.java
+└── Bookazon.java (thin demo / CLI entrypoint)
+```
 
 ---
 
-## Class Diagram and Code Review
-- Draw a **UML class diagram** to visualize the system's structure and component relationships.
-- Have a group discussion on the current **design** and **code** to ensure all team members understand the system.
-  
----
+## 🧠 What we changed (highlights)
 
-## SOLID Principles, Code Smells, and Technical Debt
-- Identify **design problems** in the system that violate **SOLID principles**.
-- Make a list of any **code smells** (e.g., duplicated code, long methods, or classes with too many responsibilities).
-- Document each issue clearly, providing examples from the codebase.
-
----
-
-## Propose Solutions and Create Issues
-- Discuss potential solutions for each identified design problem and code smell.
-- Add these problems as **issues** in your GitHub repository. Each issue should include:
-  - A clear description of the problem (with references to the code).
-  - The proposed solution (e.g., refactoring, code redesign, or applying SOLID principles).
+- **Split the monolith**: replaced the “God-class” `Bookazon` with `CatalogService`, `UserService`, and `CheckoutService` and kept `main` thin.
+- **Address value object**: replaced 12 duplicated address fields + long parameter lists with `Address` + `AddressBook`.
+- **Discounts**: refactored hard-coded if/else tier checks to a clean lookup via `DiscountService`.
+- **Equality & snapshots**: fixed `CartItem.equals/hashCode` and made `Order` store a **snapshot** of items at checkout.
+- **Types over booleans**: introduced `CoverType` enum for `Book` (retired `isPaperback`); removed legacy boolean helpers.
+- **Media abstraction**: added `Media` hierarchy and support for **Audiobooks**, **DVDs**, and **E-books**.
+- **Optional CLI**: add a book from the command line without changing default behavior.
 
 ---
 
-## Adding New Features
-- Extend the system's functionality by:
-  - **Updating the order printing** to include discount details.
-  - Expanding the system to support **new media types**: audiobooks, DVDs, and e-books.
-- Plan the necessary design changes to incorporate these new features while maintaining SOLID principles.
+## 🧪 Run it
+
+```bash
+# compile
+javac *.java
+
+# run (baseline demo)
+java Bookazon
+```
+
+### Optional CLI: add a book at runtime
+```bash
+java Bookazon --addBook "Clean Code" "Robert C. Martin" 2008 29.99 paperback
+```
+
+- If provided, the book is inserted **before** the normal demo.
+- If omitted, everything runs exactly as before.
 
 ---
 
-## Milestone and Issue Organization
-- The **backlog manager** is responsible for organizing identified issues into a **milestone**.
-- Properly **label** each issue, indicating its type (e.g., "bug," "enhancement," "refactoring") and priority level.
+## 🔍 Before → After (Design)
+
+| Area | Before | After |
+|---|---|---|
+| Responsibilities | `Bookazon` did everything | Dedicated services: Catalog / User / Checkout |
+| Discounts | Chained if/else with string tiers | Single lookup in `DiscountService` |
+| Book cover type | `boolean isPaperback` | `CoverType` enum (`PAPERBACK`/`HARDCOVER`) |
+| Addresses | 6-param setters sprinkled around | `Address` object + `AddressBook` |
+| Order items | Live view of `Cart` items | Snapshot at checkout |
+| Collections | Mutable lists exposed | Defensive/unmodifiable access in key paths |
+| Printing | Intermixed with domain | Concentrated in demo + toString helpers |
 
 ---
 
-## Teamwork and GitHub Practices
-- Each team member should select **one issue** at a time to work on and may take on another only after completing the current one.
-- Follow Git/GitHub practices by:
-  - Creating a **feature branch** for each issue.
-  - Ensuring that your branch doesn't break the system (test your changes).
-  - **Opening a pull request (PR)** to merge your changes back into the main branch.
-- **Code Reviews:** Each team member must review at least **one PR** from another member to ensure code quality and consistency.
-- Keep the **main branch** in a working state at all times. No broken or unfinished code should be merged into the main branch.
-- Ensure no **stale feature branches** remain after a milestone. Clean up unused branches.
+## 🧩 Notable PRs (themes)
+
+- **God-class → Services**: Broke `Bookazon` into `CatalogService`, `UserService`, `CheckoutService`.
+- **Discounts cleanup**: Replaced string comparisons & nested conditionals with a `HashMap` rate lookup.
+- **Correct equality**: Implemented `equals(Object)`/`hashCode()` for `CartItem`; orders no longer mutate when carts change.
+- **CoverType enum**: Migrated from `isPaperback` to `CoverType`; removed legacy boolean helpers.
+- **Address refactor**: Swapped long parameter lists for an `Address` value object used consistently.
+- **Order printout**: Clear pricing breakdown (subtotal, tier/rate, discount amount, final total).
+- **CLI extension**: `--addBook` for quick runtime additions (keeps backward compatibility).
 
 ---
 
-## Extensions
-- Fix all coding style issues with guidance from a tool such as **CheckStyle**. Document your progress with **before/after snapshots** of the code.
-- Create a **burndown chart** for this sprint using GitHub or another tool.
-- Add a **creative and elaborate `README.md`** file to your repository explaining the work you did. This should be more creative than the project report.
+## 🧼 Code smells we hunted
+
+SRP violations, OCP (hard-coded discount branches), LSP risk (type flag), DIP gaps (no pricing abstraction), Leaky encapsulation, Exposed mutable lists, Long parameter lists / data clumps (addresses), Primitive obsession (strings for tiers, doubles for money), Domain printing, Anemic models.
 
 ---
 
-## Report (Google Doc)
-Organize a **Google Doc report** with the following sections, including screenshots and text to communicate the objectives of your work:
+## 🧯 Sample output (CLI flow)
 
-1. **Abstract:**  
-   A brief summary of the Sprint in your own words (no more than 150 words). Give context and summarize the outcome.
+```
+$ java Bookazon --addBook "Clean Code" "Robert C. Martin" 2008 29.99 paperback
+[CLI] Added book: Clean Code (PAPERBACK)
+=== All Media Items ===
+... (seeded items) ...
+Title: Clean Code
+Author: Robert C. Martin
+Year Published: 2008
+Price: $29.99
+Cover: PAPERBACK
+...
+Pricing Breakdown:
+Subtotal: $37.97
+Subscription: Normal (No discount)
+Discount Amount: $0.00
+Final Total: $37.97
+```
 
-2. **Results:**  
-   A section outlining the results of your Sprint, including links to your **public repository**.
+---
 
-3. **Reflection:**  
-   Reflect on what you learned during the Sprint.
+## 🚀 Ideas for future sprints
 
-4. **Extensions:**  
-   Describe any extensions you undertook, supported by text output, graphs, tables, or images.
+- Promo codes (Strategy), search/sort filters, inventory/stock, CSV export of receipts, and money type (`BigDecimal`) for accurate pricing.
 
-5. **References/Acknowledgements/AI Use Documentation:**  
-   List any references used and acknowledge AI tools, if applicable, that contributed to your work.
+---
+
+## 👥 Team
+
+**Group 4** — Anh Nguyen, Chinh Nguyen, Linh Tong  
+We pair-reviewed changes, tracked issues, and kept each PR focused and reversible. (See the “Pull requests” tab for detailed “What/Why/How” narratives.)
+
+---
+
+## 📎 Appendix
+
+- Sprint 1 report (methods, diagrams, and issue list) — see `/docs` or project files.
