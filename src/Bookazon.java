@@ -21,7 +21,7 @@ public class Bookazon {
                     String cover = args[5].toLowerCase();
                     CoverType coverType = cover.startsWith("p") ? CoverType.PAPERBACK
                                                                 : CoverType.HARDCOVER;
-                    catalog.addBook(new Book(title, author, year, price, coverType));
+                    catalog.addMedia(new Book(title, author, year, price, coverType));
                     System.out.println("[CLI] Added book: " + title + " (" + coverType + ")");
                 } catch (NumberFormatException nfe) {
                     System.out.println("[CLI] Invalid number for year/price. Usage:");

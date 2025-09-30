@@ -15,12 +15,6 @@ public class Book extends Media {
     public CoverType getCoverType() { return coverType; }
     public void setCoverType(CoverType coverType) { this.coverType = coverType; }
 
-    public boolean isPaperback() { return coverType == CoverType.PAPERBACK; }
-
-    public void setPaperback(boolean isPaperback) {
-        this.coverType = isPaperback ? CoverType.PAPERBACK : CoverType.HARDCOVER;
-    }
-
     @Override
     public void printMediaDetails() {
         System.out.println("Title: " + title);
