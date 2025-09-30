@@ -1,4 +1,6 @@
+
 public class DVD extends Media {
+
     private String director;
     private int runtimeMinutes;
     private VideoFormat videoFormat;
@@ -12,17 +14,37 @@ public class DVD extends Media {
         this.genre = genre;
     }
 
-    public String getDirector() { return director; }
-    public void setDirector(String director) { this.director = director; }
+    public String getDirector() {
+        return director;
+    }
 
-    public int getRuntimeMinutes() { return runtimeMinutes; }
-    public void setRuntimeMinutes(int runtimeMinutes) { this.runtimeMinutes = runtimeMinutes; }
+    public void setDirector(String director) {
+        this.director = director;
+    }
 
-    public VideoFormat getVideoFormat() { return videoFormat; }
-    public void setVideoFormat(VideoFormat videoFormat) { this.videoFormat = videoFormat; }
+    public int getRuntimeMinutes() {
+        return runtimeMinutes;
+    }
 
-    public String getGenre() { return genre; }
-    public void setGenre(String genre) { this.genre = genre; }
+    public void setRuntimeMinutes(int runtimeMinutes) {
+        this.runtimeMinutes = runtimeMinutes;
+    }
+
+    public VideoFormat getVideoFormat() {
+        return videoFormat;
+    }
+
+    public void setVideoFormat(VideoFormat videoFormat) {
+        this.videoFormat = videoFormat;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
 
     @Override
     public void printMediaDetails() {
@@ -40,7 +62,15 @@ public class DVD extends Media {
         return "DVD";
     }
 
-    public boolean isDirectorValid() { return director != null && !director.isEmpty(); }
-    public boolean isRuntimeValid() { return runtimeMinutes > 0; }
-    public boolean isGenreValid() { return genre != null && !genre.isEmpty(); }
+    public boolean isDirectorValid() {
+        return director != null && !director.isEmpty();
+    }
+
+    public boolean isRuntimeValid() {
+        return runtimeMinutes > 0;
+    }
+
+    public boolean isGenreValid() {
+        return genre != null && !genre.isEmpty();
+    }
 }

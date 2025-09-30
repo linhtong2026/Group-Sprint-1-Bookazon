@@ -1,8 +1,10 @@
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Order {
+
     private String dateCreated;
     private String dateShipped;
     private String userName;
@@ -17,12 +19,12 @@ public class Order {
     public Order(Cart cart, TotalPriceCalculator totalPriceCalculator, Subscription subscription) {
         this.subscription = subscription;
         this.items = Collections.unmodifiableList(new ArrayList<>(cart.getItems()));
-        
+
         this.subtotal = 0.0;
         for (CartItem item : this.items) {
             this.subtotal += item.getTotalPrice();
         }
-        
+
         this.orderPrice = totalPriceCalculator.calculateTotalPrice(this.items);
     }
 
@@ -58,11 +60,11 @@ public class Order {
         System.out.println("Order Status: " + orderStatus);
         System.out.println("Shipping Address: " + (shippingAddress != null ? shippingAddress.toString() : "Not set"));
         System.out.println("Billing Address: " + (billingAddress != null ? billingAddress.toString() : "Not set"));
-        
+
         System.out.println();
         System.out.println("Pricing Breakdown:");
         System.out.printf("Subtotal: $%.2f%n", subtotal);
-        
+
         if (subscription != null && subscription.discountRate() > 0) {
             double discountAmount = subtotal - orderPrice;
             System.out.printf("Subscription: %s%n", subscription.toString());
@@ -71,7 +73,7 @@ public class Order {
             System.out.println("Subscription: Normal (No discount)");
             System.out.println("Discount Amount: $0.00");
         }
-        
+
         System.out.printf("Final Total: $%.2f%n", orderPrice);
     }
 }

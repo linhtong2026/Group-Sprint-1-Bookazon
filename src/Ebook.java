@@ -1,4 +1,6 @@
+
 public class Ebook extends Media {
+
     private String author;
     private EbookFormat ebookFormat;
     private double fileSizeMB;
@@ -12,17 +14,37 @@ public class Ebook extends Media {
         this.hasDRM = hasDRM;
     }
 
-    public String getAuthor() { return author; }
-    public void setAuthor(String author) { this.author = author; }
+    public String getAuthor() {
+        return author;
+    }
 
-    public EbookFormat getEbookFormat() { return ebookFormat; }
-    public void setEbookFormat(EbookFormat ebookFormat) { this.ebookFormat = ebookFormat; }
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
-    public double getFileSizeMB() { return fileSizeMB; }
-    public void setFileSizeMB(double fileSizeMB) { this.fileSizeMB = fileSizeMB; }
+    public EbookFormat getEbookFormat() {
+        return ebookFormat;
+    }
 
-    public boolean hasDRM() { return hasDRM; }
-    public void setDRM(boolean hasDRM) { this.hasDRM = hasDRM; }
+    public void setEbookFormat(EbookFormat ebookFormat) {
+        this.ebookFormat = ebookFormat;
+    }
+
+    public double getFileSizeMB() {
+        return fileSizeMB;
+    }
+
+    public void setFileSizeMB(double fileSizeMB) {
+        this.fileSizeMB = fileSizeMB;
+    }
+
+    public boolean hasDRM() {
+        return hasDRM;
+    }
+
+    public void setDRM(boolean hasDRM) {
+        this.hasDRM = hasDRM;
+    }
 
     @Override
     public void printMediaDetails() {
@@ -40,6 +62,11 @@ public class Ebook extends Media {
         return "Ebook";
     }
 
-    public boolean isAuthorValid() { return author != null && !author.isEmpty(); }
-    public boolean isFileSizeValid() { return fileSizeMB > 0; }
+    public boolean isAuthorValid() {
+        return author != null && !author.isEmpty();
+    }
+
+    public boolean isFileSizeValid() {
+        return fileSizeMB > 0;
+    }
 }

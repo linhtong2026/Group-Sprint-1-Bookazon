@@ -1,4 +1,6 @@
+
 public class CartItem {
+
     private String itemName;
     private double price;
     private int quantity;
@@ -33,8 +35,12 @@ public class CartItem {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof CartItem)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof CartItem)) {
+            return false;
+        }
         CartItem other = (CartItem) o;
         return this.itemName != null && this.itemName.equals(other.itemName);
     }

@@ -1,4 +1,6 @@
+
 public abstract class Subscription {
+
     private final String name;
     private final double discountRate;
 
@@ -21,7 +23,7 @@ public abstract class Subscription {
 
     @Override
     public String toString() {
-        return String.format("%s subscription (%.0f%% discount)", 
-                             name, discountRate * 100);
+        return String.format("%s subscription (%.0f%% discount)",
+                name, discountRate * 100);
     }
 }

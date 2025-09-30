@@ -1,4 +1,6 @@
+
 public class Address {
+
     private String line1;
     private String line2;
     private String city;
@@ -15,19 +17,36 @@ public class Address {
         this.country = country;
     }
 
-    public String getLine1() { return line1; }
-    public String getLine2() { return line2; }
-    public String getCity()  { return city; }
-    public String getState() { return state; }
-    public String getZip()   { return zip; }
-    public String getCountry() { return country; }
+    public String getLine1() {
+        return line1;
+    }
+
+    public String getLine2() {
+        return line2;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public String getCountry() {
+        return country;
+    }
 
     @Override
     public String toString() {
         return String.join(", ",
-            line1,
-            (line2 == null || line2.isEmpty() ? "" : line2),
-            city, state, zip, country
+                line1,
+                (line2 == null || line2.isEmpty() ? "" : line2),
+                city, state, zip, country
         ).replaceAll(",\\s*,", ", ").trim();
     }
 }

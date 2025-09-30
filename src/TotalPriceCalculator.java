@@ -1,6 +1,8 @@
+
 import java.util.List;
 
 public class TotalPriceCalculator {
+
     private final DiscountCalculator discountCalculator;
     private final Subscription subscription;
 
