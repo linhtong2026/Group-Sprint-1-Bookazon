@@ -8,10 +8,6 @@ public class Book extends Media {
         this.coverType = coverType;
     }
 
-    public Book(String title, String author, int yearPublished, double price, boolean isPaperback) {
-        this(title, author, yearPublished, price,
-             isPaperback ? CoverType.PAPERBACK : CoverType.HARDCOVER);
-    }
 
     public String getAuthor() { return author; }
     public void setAuthor(String author) { this.author = author; }
@@ -39,9 +35,6 @@ public class Book extends Media {
         return "Book";
     }
 
-    public void printBookDetails() {
-        printMediaDetails();
-    }
 
     public boolean isAuthorValid() { return author != null && !author.isEmpty(); }
 }
